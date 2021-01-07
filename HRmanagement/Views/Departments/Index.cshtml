@@ -1,0 +1,28 @@
+﻿@model IEnumerable<HRmanagement.Models.Department>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>List Of Departments</h1>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Address
+        </th>
+    </tr>
+    @foreach (var d in Model)
+    {
+        <tr>
+            <td>
+                @d.Name
+            </td>
+            <td>
+                @d.Address
+            </td>
+        </tr>
+    }
+</table>

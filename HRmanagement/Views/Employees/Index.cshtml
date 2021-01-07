@@ -1,0 +1,44 @@
+﻿@model IEnumerable<HRmanagement.Models.Employee>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            Gender
+        </th>
+        <th>
+            Join Date
+        </th>
+        <th>
+            Birth Date
+        </th>
+    </tr>
+    @foreach (var e in Model)
+    {
+        <tr>
+            <td>
+                @e.Name
+            </td>
+            <td>
+                @e.Address
+            </td>
+            <td>
+                @e.Gender
+            </td>
+            <td>
+                @e.Doj.ToString()
+            </td>
+            <td>
+                @e.Dob.ToString()
+            </td>
+        </tr>
+    }
+</table>
