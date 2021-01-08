@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using HRmanagement.BLL;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -123,6 +124,20 @@ namespace HRmanagement.DAO
             {
                 foreach (string att in attributes)
                 {
+                    // if it is a datetime convert it
+                    if (entity.GetType().GetProperty(att).PropertyType == typeof(DateTime))
+                    {
+                        string dateValue = FormatConverter
+                            .ConvertToMySqlDateString(
+                            (DateTime)entity.GetType().GetProperty(att).GetValue(entity));
+                        com.Parameters.Add(new MySqlParameter(
+                        att,
+                        dateValue));
+
+                        continue;
+                    }
+
+                    // for ordinary data values
                     com.Parameters.Add(new MySqlParameter(
                         att,
                         entity.GetType().GetProperty(att).GetValue(entity).ToString()));

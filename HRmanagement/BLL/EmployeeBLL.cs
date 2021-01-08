@@ -9,7 +9,7 @@ namespace HRmanagement.BLL
 {
     public class EmployeeBLL
     {
-        public void Insert(string Name, string Address, string Gender, DateTime Doj, DateTime Dob, Department dep)
+        public void Insert(string Name, string Address, string Gender, DateTime Doj, DateTime Dob, int dep)
         {
             Employee emp = new Employee();
             emp.Name = Name;
@@ -17,6 +17,7 @@ namespace HRmanagement.BLL
             emp.Gender = Gender;
             emp.Doj = Doj;
             emp.Dob = Dob;
+            emp.DepartmentID = dep;
             EmployeeDAO dao = new EmployeeDAO();
             dao.Insert(emp);
         }

@@ -34,10 +34,10 @@
                 @e.Gender
             </td>
             <td>
-                @e.Doj.ToString()
+                @e.Doj.ToString(HRmanagement.BLL.FormatConverter.StandardDateFormat)
             </td>
             <td>
-                @e.Dob.ToString()
+                @e.Dob.ToString(HRmanagement.BLL.FormatConverter.StandardDateFormat)
             </td>
         </tr>
     }
