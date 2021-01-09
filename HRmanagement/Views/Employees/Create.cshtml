@@ -18,9 +18,9 @@
     </div>
     <div>
         <p>Gender</p>
-        <input type="radio" id="male" name="Gender" value="Male" />
+        <input type="radio" id="male" name="Gender" value="Male" required />
         <label for="male">Male</label>
-        <input type="radio" id="female" name="Gender" value="Female" />
+        <input type="radio" id="female" name="Gender" value="Female" required />
         <label for="female">Female</label>
     </div>
     @*<div class="form-group">
@@ -29,11 +29,11 @@
     </div>*@
     <div class="form-group">
         <label for="employee-doj">Date of joining</label>
-        <input type="text" id="employee-doj" class="form-control" name="Doj" />
+        <input type="text" class="datepicker form-control" name="Doj" autocomplete="off" required>
     </div>
     <div class="form-group">
         <label for="employee-dob">Date of birth</label>
-        <input type="text" id="employee-dob" class="form-control" name="Dob" />
+        <input type="text" class="datepicker form-control" name="Dob" autocomplete="off" required>
     </div>
 
     <label for="Department">Choose Department:</label>
@@ -45,6 +45,17 @@
         }
     </select>
     <input type="submit" value="Enter" />
+
+    @section Scripts {
+        <script>
+            $(".datepicker").datepicker(
+                {
+                    dateFormat: "yy/mm/dd",
+                    changeMonth: true,
+                    changeYear: true
+                });
+        </script>
+    }
 }
 
 
