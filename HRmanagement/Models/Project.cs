@@ -14,9 +14,11 @@ namespace HRmanagement.Models
         [Required]
         public string  Address { get; set; }
 
+
         [Required]
         [ForeignKey("Department")]
         public int DepartmentID { get; set; }
+        //public Department BelongsToDepartment { get; set; }
 
     }
 }
