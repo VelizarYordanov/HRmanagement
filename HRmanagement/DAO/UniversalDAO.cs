@@ -56,9 +56,11 @@ namespace HRmanagement.DAO
                 {
                     newEntity = new TEntity();
                     // Fill the properties from the database
-                    foreach(PropertyInfo p in typeof(TEntity).GetProperties(System.Reflection.BindingFlags.Public |
-                        System.Reflection.BindingFlags.DeclaredOnly).Where(p => !(p.PropertyType.GetInterfaces()
-                        .Any(x => x != typeof(IEnumerable<>)))))
+                    foreach (PropertyInfo p in typeof(TEntity).GetProperties(
+                        BindingFlags.FlattenHierarchy |
+                        BindingFlags.Public |
+                        BindingFlags.Instance)
+                        .Where(p => !p.PropertyType.IsGenericType))
                     {
                         newEntity.GetType().GetProperty(p.Name).SetValue(newEntity,
                            Convert.ChangeType(dr[p.Name], p.PropertyType));

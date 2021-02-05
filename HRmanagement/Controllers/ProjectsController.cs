@@ -14,7 +14,7 @@ namespace HRmanagement.Controllers
     {
         public IActionResult Index()
         {
-            DepartmentBLL bll = new DepartmentBLL();
+            ProjectBLL bll = new ProjectBLL();
 
             return View(bll.GetProjectDepartmentDTO());
         }
@@ -30,9 +30,12 @@ namespace HRmanagement.Controllers
             return View(dao.GetAll());
         }
 
-        public IActionResult Insert()
+        public IActionResult Insert(string Name, string Address, int Department)
         {
-            throw new NotImplementedException();
+            ProjectBLL bll = new ProjectBLL();
+            bll.Insert(Name, Address, Department);
+
+            return RedirectToAction("Index");
         }
     }
 }
