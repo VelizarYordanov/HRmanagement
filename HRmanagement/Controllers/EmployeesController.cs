@@ -29,5 +29,12 @@ namespace HRmanagement.Controllers
             BLL.Insert(Name, Address, Gender, Doj, Dob, Department);
             return RedirectToAction("Index");
         }
+
+        public IActionResult Delete(int EmployeeID)
+        {
+            EmployeeDAO dao = new EmployeeDAO();
+            dao.Delete(EmployeeID);
+            return RedirectToAction("Index");
+        }
     }
 }

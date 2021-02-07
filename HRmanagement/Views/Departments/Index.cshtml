@@ -13,6 +13,12 @@
         <th>
             Address
         </th>
+        <th>
+            Edit
+        </th>
+        <th>
+            Delete
+        </th>
     </tr>
     @foreach (var d in Model)
     {
@@ -22,6 +28,12 @@
             </td>
             <td>
                 @d.Address
+            </td>
+            <td>
+
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", "Departments", new { departmentId = @d.ID })
             </td>
         </tr>
     }

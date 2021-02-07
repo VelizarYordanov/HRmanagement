@@ -13,7 +13,8 @@ namespace HRmanagement.DAO
     {
         public int Delete(TEntity entity)
         {
-            MySqlCommand com = new MySqlCommand("delete * from departments where id = @id");
+            Type t = typeof(TEntity);
+            MySqlCommand com = new MySqlCommand("delete * from " +t.Name + "s where id = @id");
             com.Parameters.Add(new MySqlParameter("id", entity.ID));
             try
             {
@@ -28,7 +29,8 @@ namespace HRmanagement.DAO
 
         public int Delete(int id)
         {
-            MySqlCommand com = new MySqlCommand("delete * from departments where id = @id", ConnectionString.GetConnection());
+            Type t = typeof(TEntity);
+            MySqlCommand com = new MySqlCommand("delete from " + t.Name +"s where id = @id", ConnectionString.GetConnection());
             com.Parameters.Add(new MySqlParameter("id", id));
             try
             {
@@ -43,8 +45,8 @@ namespace HRmanagement.DAO
 
         public TEntity Get(int id)
         {
-
-            MySqlCommand com = new MySqlCommand("select * from departments where id = @id", ConnectionString.GetConnection());
+            Type t = typeof(TEntity);
+            MySqlCommand com = new MySqlCommand("select * from " + t.Name + "s where id = @id", ConnectionString.GetConnection());
             com.Parameters.Add(new MySqlParameter("id", id));
             try
             {

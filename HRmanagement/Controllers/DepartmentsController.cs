@@ -26,7 +26,14 @@ namespace HRmanagement.Controllers
         {
             DepartmentBLL bll = new DepartmentBLL();
             bll.Insert(Name, Address);
-            return View();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int departmentId)
+        {
+            DepartmentDAO dao = new DepartmentDAO();
+            dao.Delete(departmentId);
+            return RedirectToAction("Index");
         }
     }
 }

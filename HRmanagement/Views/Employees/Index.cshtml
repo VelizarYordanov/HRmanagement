@@ -20,25 +20,31 @@
         <th>
             Birth Date
         </th>
+        <th>
+            Delete
+        </th>
     </tr>
     @foreach (var e in Model)
     {
-        <tr>
-            <td>
-                @e.Name
-            </td>
-            <td>
-                @e.Address
-            </td>
-            <td>
-                @e.Gender
-            </td>
-            <td>
-                @e.Doj.ToString(HRmanagement.BLL.FormatConverter.StandardDateFormat)
-            </td>
-            <td>
-                @e.Dob.ToString(HRmanagement.BLL.FormatConverter.StandardDateFormat)
-            </td>
-        </tr>
+<tr>
+    <td>
+        @e.Name
+    </td>
+    <td>
+        @e.Address
+    </td>
+    <td>
+        @e.Gender
+    </td>
+    <td>
+        @e.Doj.ToString(HRmanagement.BLL.FormatConverter.StandardDateFormat)
+    </td>
+    <td>
+        @e.Dob.ToString(HRmanagement.BLL.FormatConverter.StandardDateFormat)
+    </td>
+    <td>
+        @Html.ActionLink("Delete", "Delete", "Employees", new { EmployeeId = @e.ID })
+    </td>
+</tr>
     }
 </table>

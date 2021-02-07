@@ -37,5 +37,12 @@ namespace HRmanagement.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult Delete(int ProjectID)
+        {
+            ProjectDAO dao = new ProjectDAO();
+            dao.Delete(ProjectID);
+            return RedirectToAction("Index");
+        }
     }
 }
