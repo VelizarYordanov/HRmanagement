@@ -19,6 +19,16 @@ namespace HRmanagement.BLL
             dao.Insert(dep);
         }
 
-       
+        public void Update(int ID, string Name, string Address)
+        {
+            Department dep = new Department() {
+                ID = ID,
+                Name = Name,
+                Address = Address
+            };
+            DepartmentDAO dao = new DepartmentDAO();
+
+            dao.Update(dep);
+        }
     }
 }

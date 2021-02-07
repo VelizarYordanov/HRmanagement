@@ -1,0 +1,23 @@
+﻿@model HRmanagement.Models.Department
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit Department</h1>
+
+@using (Html.BeginForm("Update", "Departments"))
+{
+    <div class="form-group">
+        <input type="hidden" id="department-id" class="form-control" name="DepartmentId" value="@Model.ID" readonly />
+    </div>
+    <div class="form-group">
+        <label for="department-name">Name</label>
+        <input type="text" id="department-name" class="form-control" name="Name" value="@Model.Name" />
+    </div>
+    <div class="form-group">
+        <label for="department-address">Address</label>
+        <input type="text" class="form-control" id="department-address" name="Address" value="@Model.Address" />
+    </div>
+    <button class="btn btn-primary" type="submit">Update Changes</button>
+}
+

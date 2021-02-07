@@ -163,7 +163,10 @@ namespace HRmanagement.DAO
             {
                 //List<string> attributes = new List<string>() { "name", "address" };
                 List<string> attributes = typeof(TEntity)
-                    .GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.DeclaredOnly)
+                    .GetProperties(BindingFlags.FlattenHierarchy |
+                        BindingFlags.Public |
+                        BindingFlags.Instance)
+                    .Where(p => !p.PropertyType.IsGenericType)
                     .Select(p => p.Name)
                     .ToList();
                 string sql = UpdateSqlBuilder(typeof(TEntity).Name, attributes);
@@ -176,6 +179,8 @@ namespace HRmanagement.DAO
                         att,                                                                // Parameter Name
                         entity.GetType().GetProperty(att).GetValue(entity).ToString()));    // Parameter Value
                 }
+
+                com.Connection.Open();
 
                 return com.ExecuteNonQuery();
             }

@@ -26,7 +26,7 @@ namespace HRmanagement.DAO
 
         public string UpdateSqlBuilder(string TableName, IEnumerable<string> ColumnNames)
         {
-            string sql = "update " + TableName + " set ";
+            string sql = "update " + TableName + "s set ";
             sql += string.Join(", ", ColumnNames.Select(c => c + " = @" + c).ToArray());
             sql += " where id = @id;";
 

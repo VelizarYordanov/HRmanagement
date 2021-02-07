@@ -35,5 +35,18 @@ namespace HRmanagement.Controllers
             dao.Delete(departmentId);
             return RedirectToAction("Index");
         }
+
+        public IActionResult Edit(int departmentId)
+        {
+            DepartmentDAO dao = new DepartmentDAO();
+            return View(dao.Get(departmentId));
+        }
+
+        public IActionResult Update(int DepartmentId, string Name, string Address)
+        {
+            DepartmentBLL bll = new DepartmentBLL();
+            bll.Update(DepartmentId, Name, Address);
+            return RedirectToAction("Index");
+        }
     }
 }
