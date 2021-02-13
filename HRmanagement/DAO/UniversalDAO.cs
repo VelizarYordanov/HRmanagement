@@ -175,6 +175,19 @@ namespace HRmanagement.DAO
 
                 foreach (string att in attributes)
                 {
+                    // if it is a datetime convert it
+                    if (entity.GetType().GetProperty(att).PropertyType == typeof(DateTime))
+                    {
+                        string dateValue = FormatConverter
+                            .ConvertToMySqlDateString(
+                            (DateTime)entity.GetType().GetProperty(att).GetValue(entity));
+                        com.Parameters.Add(new MySqlParameter(
+                        att,
+                        dateValue));
+
+                        continue;
+                    }
+
                     com.Parameters.Add(new MySqlParameter(
                         att,                                                                // Parameter Name
                         entity.GetType().GetProperty(att).GetValue(entity).ToString()));    // Parameter Value

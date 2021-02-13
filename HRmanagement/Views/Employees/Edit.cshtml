@@ -1,0 +1,62 @@
+﻿@model HRmanagement.BLL.DTO.Employees.EmployeeProjectsDto
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit Employee</h1>
+
+@using (Html.BeginForm("Update", "Employees"))
+{
+    <div class="form-group">
+        <input type="hidden" id="employee-id" class="form-control" name="EmployeeId" value="@Model.Employee.ID" readonly />
+    </div>
+
+    <div class="form-group">
+        <label for="employee-name">Name</label>
+        <input type="text" id="employee-name" class="form-control" name="Name" value="@Model.Employee.Name" />
+    </div>
+    <div class="form-group">
+        <label for="employee-address">Address</label>
+        <input type="text" id="employee-address" class="form-control" name="Address" value="@Model.Employee.Address" />
+    </div>
+
+    <div>
+        <p>Gender</p>
+        <input type="radio" id="male" name="Gender" value="Male" required 
+               @(Model.Employee.Gender.ToLower() == "male" ? "checked" : "") />
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="Gender" value="Female" required 
+               @(Model.Employee.Gender.ToLower() == "female" ? "checked" : "") />
+        <label for="female">Female</label>
+    </div>
+    <div class="form-group">
+        <label for="employee-doj">Date of joining</label>
+        <input type="text" class="datepicker form-control" name="Doj" autocomplete="off" value="@Model.Employee.Doj" required>
+    </div>
+    <div class="form-group">
+        <label for="employee-dob">Date of birth</label>
+        <input type="text" class="datepicker form-control" name="Dob" autocomplete="off" value="@Model.Employee.Dob" required>
+    </div>
+
+    <label for="Department">Choose Department:</label>
+
+    <select id="Department" name="Department">
+        @foreach (var d in Model.Departments)
+        {
+            <option value="@d.ID">@d.Name</option>
+        }
+    </select>
+    <input type="submit" value="Enter" />
+
+    @section Scripts {
+        <script>
+            $(".datepicker").datepicker(
+                {
+                    dateFormat: "yy/mm/dd",
+                    changeMonth: true,
+                    changeYear: true
+                });
+        </script>
+    }
+}
+

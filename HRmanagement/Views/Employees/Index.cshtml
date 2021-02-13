@@ -21,6 +21,9 @@
             Birth Date
         </th>
         <th>
+            Edit
+        </th>
+        <th>
             Delete
         </th>
     </tr>
@@ -41,6 +44,9 @@
     </td>
     <td>
         @e.Dob.ToString(HRmanagement.BLL.FormatConverter.StandardDateFormat)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", "Employees", new { employeeID = e.ID })
     </td>
     <td>
         @Html.ActionLink("Delete", "Delete", "Employees", new { EmployeeId = @e.ID })
