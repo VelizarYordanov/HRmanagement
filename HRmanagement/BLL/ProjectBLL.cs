@@ -48,5 +48,33 @@ namespace HRmanagement.BLL
 
             return projDepDTO;
         }
+
+        public ProjectDepartmentsDTO GetProjectDepartmentsDTO(int ProjectId)
+        {
+            ProjectDepartmentsDTO output = new ProjectDepartmentsDTO();
+
+            ProjectDAO projectDao = new ProjectDAO();
+            output.Project = projectDao.Get(ProjectId);
+
+            DepartmentDAO departmentDAO = new DepartmentDAO();
+            output.Departments = departmentDAO.GetAll();
+
+            return output;
+        }
+
+        public void Update(int ProjectID, string Name, string Address, int DepartmentID )
+        {
+            Project proj = new Project()
+            {
+                ID = ProjectID,
+                Name = Name,
+                Address = Address,
+                DepartmentID = DepartmentID
+            };
+
+            ProjectDAO dao = new ProjectDAO();
+
+            dao.Update(proj);
+        }
     }
 }

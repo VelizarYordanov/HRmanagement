@@ -17,6 +17,9 @@
             Department
         </th>
         <th>
+            Edit
+        </th>
+        <th>
             Delete
         </th>
     </tr>
@@ -31,6 +34,9 @@
     </td>
     <td>
         @p.BelongsToDepartment.Name
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", "Projects", new { ProjectID = p.ID })
     </td>
     <td>
         @Html.ActionLink("Delete", "Delete", "Projects", new { ProjectID = @p.ID })

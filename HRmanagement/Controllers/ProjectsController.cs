@@ -44,5 +44,18 @@ namespace HRmanagement.Controllers
             dao.Delete(ProjectID);
             return RedirectToAction("Index");
         }
+
+        public IActionResult Edit(int ProjectId)
+        {
+            ProjectBLL projectBLL = new ProjectBLL();
+            return View(projectBLL.GetProjectDepartmentsDTO(ProjectId));
+        }
+
+        public IActionResult Update(int ProjectId, int DepartmentId, string Name, string Address)
+        {
+            ProjectBLL bll = new ProjectBLL();
+            bll.Update(ProjectId, Name, Address, DepartmentId);
+            return RedirectToAction("Index");
+        }
     }
 }

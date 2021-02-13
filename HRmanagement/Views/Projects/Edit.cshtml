@@ -1,0 +1,32 @@
+﻿@model HRmanagement.BLL.DTO.Projects.ProjectDepartmentsDTO
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit Project</h1>
+
+@using (Html.BeginForm("Update", "Projects"))
+{
+    <div class="form-group">
+        <input type="hidden" id="project-id" class="form-control" name="ProjectId" value="@Model.Project.ID" readonly />
+    </div>
+    <div class="form-group">
+        <label for="project-name">Name</label>
+        <input type="text" id="project-name" class="form-control" name="Name" value="@Model.Project.Name" />
+    </div>
+    <div class="form-group">
+        <label for="project-address">Address</label>
+        <input type="text" id="procejt-address" class="form-control" name="Address" value=" @Model.Project.Address" />
+    </div>
+
+    <label for="Department">Choose Department:</label>
+
+    <select id="Department" name="DepartmentId">
+        @foreach (var d in Model.Departments)
+        {
+            <option value="@d.ID">@d.Name</option>
+        }
+    </select>
+    <input type="submit" value="Enter" />
+}
+
