@@ -6,10 +6,10 @@
 @if (User.Identity.IsAuthenticated)
 {
     <div class="nav-link">
-        ... кой си ти
+        @User.Identity.Name
     </div>
     <div class="nav-link">
-        Logout
+        <a class="nav-link text-dark" asp-area="" asp-controller="UserManagement" asp-action="LogOut">Logout</a>
     </div>
 }
 else

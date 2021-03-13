@@ -52,7 +52,13 @@ namespace HRmanagement.Controllers
 
             HttpContext.SignInAsync(principal);
 
-            return RedirectToAction("Index", "Index");
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult LogOut()
+        {
+            HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

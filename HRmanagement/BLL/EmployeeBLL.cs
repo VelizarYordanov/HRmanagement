@@ -28,7 +28,7 @@ namespace HRmanagement.BLL
             EmployeeProjectsDto dto = new EmployeeProjectsDto();
 
             EmployeeDAO empDao = new EmployeeDAO();
-            dto.Employee = empDao.Get("id", EmployeeId.ToString());
+            dto.Employee = empDao.GetFiltered("id", EmployeeId.ToString());
 
             DepartmentDAO depDao = new DepartmentDAO();
 

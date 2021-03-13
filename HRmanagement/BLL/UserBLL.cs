@@ -86,8 +86,12 @@ namespace HRmanagement.BLL
         {
             // Get user
             UserDAO userDao = new UserDAO();
-            User user = userDao.Get("username", UserName);
-            if (user == null || user.PasswordHash != Password)
+            User user = userDao.GetFiltered("username", UserName);
+            if (user == null)
+            {
+                user = userDao.GetFiltered("email", UserName);
+            }
+            if (user == null || !BCrypt.Net.BCrypt.Verify(Password, user.PasswordHash))
             {
                 return new AuthenticationResponseDto()
                 {
@@ -103,7 +107,25 @@ namespace HRmanagement.BLL
             dto.Claims.Add(new Claim(ClaimTypes.Email, user.Email));
 
             // TODO: add role to identity claims
+            foreach(Role r in GetUserRoles(user.ID))
+            {
+                dto.Claims.Add(new Claim(ClaimTypes.Role, r.RoleName));
+            }
+
             return dto;
+        }
+
+        public List<Role> GetUserRoles(int UserId)
+        {
+            UserRoleDAO userRoleDAO = new UserRoleDAO();
+            RoleDAO roleDao = new RoleDAO();
+            List<Role> roles = new List<Role>();
+            foreach (UserRole ur in userRoleDAO.GetAllFiltered("UserId", UserId.ToString()))
+            {
+                roles.Add(roleDao.GetByID(ur.RoleID));
+            }
+
+            return roles;
         }
     }
 }

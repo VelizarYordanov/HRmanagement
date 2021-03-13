@@ -43,20 +43,20 @@ namespace HRmanagement.DAO
             }
         }
 
-        public TEntity Get(string FilterName, string FilterValue)
+        public List<TEntity> GetAllFiltered(string FilterName, string FilterValue)
         {
             Type t = typeof(TEntity);
+            List<TEntity> listEntities = new List<TEntity>();
             MySqlCommand com = new MySqlCommand("select * from " + t.Name + "s where " + FilterName + " = @" + FilterName, ConnectionString.GetConnection());
             com.Parameters.Add(new MySqlParameter(FilterName, FilterValue));
             try
             {
                 com.Connection.Open();
                 MySqlDataReader dr = com.ExecuteReader();
-                TEntity newEntity;
 
-                if (dr.Read())
+                while (dr.Read())
                 {
-                    newEntity = new TEntity();
+                    TEntity newEntity = new TEntity();
                     // Fill the properties from the database
                     foreach (PropertyInfo p in typeof(TEntity).GetProperties(
                         BindingFlags.FlattenHierarchy |
@@ -67,7 +67,12 @@ namespace HRmanagement.DAO
                         newEntity.GetType().GetProperty(p.Name).SetValue(newEntity,
                            Convert.ChangeType(dr[p.Name], p.PropertyType));
                     }
-                    return newEntity;
+                    listEntities.Add(newEntity);
+                }
+
+                if (listEntities.Count > 0)
+                {
+                    return listEntities;
                 }
                 else
                 {
@@ -80,9 +85,42 @@ namespace HRmanagement.DAO
             }
         }
 
+        public TEntity GetFiltered(string FilterName, string FilterValue)
+        {
+            Type t = typeof(TEntity);
+            MySqlCommand com = new MySqlCommand("select * from " + t.Name + "s where " + FilterName + " = @" + FilterName, ConnectionString.GetConnection());
+            com.Parameters.Add(new MySqlParameter(FilterName, FilterValue));
+            try
+            {
+                com.Connection.Open();
+                MySqlDataReader dr = com.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    TEntity newEntity = new TEntity();
+                    // Fill the properties from the database
+                    foreach (PropertyInfo p in typeof(TEntity).GetProperties(
+                        BindingFlags.FlattenHierarchy |
+                        BindingFlags.Public |
+                        BindingFlags.Instance)
+                        .Where(p => !p.PropertyType.IsGenericType))
+                    {
+                        newEntity.GetType().GetProperty(p.Name).SetValue(newEntity,
+                           Convert.ChangeType(dr[p.Name], p.PropertyType));
+                    }
+                    return newEntity;
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public TEntity GetByID(int id)
         {
-            return Get("id", id.ToString());
+            return GetFiltered("id", id.ToString());
         }
 
         public List<TEntity> GetAll( )

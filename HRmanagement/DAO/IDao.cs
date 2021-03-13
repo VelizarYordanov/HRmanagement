@@ -10,7 +10,8 @@ namespace HRmanagement.DAO
     {
         List<TModel> GetAll();
         TModel GetByID(int id);
-        TModel Get(string FilterName, string FilterValue);
+        List<TModel> GetAllFiltered(string FilterName, string FilterValue);
+        TModel GetFiltered(string FilterName, string FilterValue);
         int Delete(TModel entity);
         int Delete(int id);
         ulong Insert(TModel entity);
