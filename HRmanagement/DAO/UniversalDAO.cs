@@ -43,11 +43,11 @@ namespace HRmanagement.DAO
             }
         }
 
-        public TEntity Get(int id)
+        public TEntity Get(string FilterName, string FilterValue)
         {
             Type t = typeof(TEntity);
-            MySqlCommand com = new MySqlCommand("select * from " + t.Name + "s where id = @id", ConnectionString.GetConnection());
-            com.Parameters.Add(new MySqlParameter("id", id));
+            MySqlCommand com = new MySqlCommand("select * from " + t.Name + "s where " + FilterName + " = @" + FilterName, ConnectionString.GetConnection());
+            com.Parameters.Add(new MySqlParameter(FilterName, FilterValue));
             try
             {
                 com.Connection.Open();
@@ -80,7 +80,12 @@ namespace HRmanagement.DAO
             }
         }
 
-        public List<TEntity> GetAll()
+        public TEntity GetByID(int id)
+        {
+            return Get("id", id.ToString());
+        }
+
+        public List<TEntity> GetAll( )
         {
             Type t = typeof(TEntity);
             MySqlCommand com = new MySqlCommand("Select * from " + t.Name + "s", ConnectionString.GetConnection());
@@ -116,8 +121,9 @@ namespace HRmanagement.DAO
 
         }
 
-        public int Insert(TEntity entity)
+        public ulong Insert(TEntity entity)
         {
+            ulong lastId = 0;
             List<string> attributes = typeof(TEntity).GetProperties(BindingFlags.DeclaredOnly |
                         BindingFlags.Public |
                         BindingFlags.Instance).Where(p => !p.PropertyType.IsGenericType).Select(p => p.Name).ToList();
@@ -146,15 +152,21 @@ namespace HRmanagement.DAO
                         att,
                         entity.GetType().GetProperty(att).GetValue(entity).ToString()));
                 }
+
+
                 com.Connection.Open();
 
-                return com.ExecuteNonQuery();
+                lastId = (ulong)com.ExecuteScalar();
             }
             catch (Exception e)
             {
                 throw e;
             }
-
+            finally
+            {
+                com.Connection.Close();
+            }
+            return lastId;
         }
 
         public int Update(TEntity entity)

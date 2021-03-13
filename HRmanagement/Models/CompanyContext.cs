@@ -13,6 +13,7 @@ namespace HRmanagement.Models
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectEmployee> Project_Employee { get; set; }
+        public DbSet<User> Users { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySQL("server=localhost;database=company;user=root;password=01062004veli");

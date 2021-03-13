@@ -43,7 +43,7 @@ namespace HRmanagement.BLL
                 }
 
                 // Add Department
-                projDepDTO[i].BelongsToDepartment = depdao.Get(projDepDTO[i].DepartmentID);
+                projDepDTO[i].BelongsToDepartment = depdao.Get("id", projDepDTO[i].DepartmentID.ToString());
             }
 
             return projDepDTO;
@@ -54,7 +54,7 @@ namespace HRmanagement.BLL
             ProjectDepartmentsDTO output = new ProjectDepartmentsDTO();
 
             ProjectDAO projectDao = new ProjectDAO();
-            output.Project = projectDao.Get(ProjectId);
+            output.Project = projectDao.Get("id", ProjectId.ToString());
 
             DepartmentDAO departmentDAO = new DepartmentDAO();
             output.Departments = departmentDAO.GetAll();

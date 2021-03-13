@@ -9,10 +9,11 @@ namespace HRmanagement.DAO
         where TModel : Models.Universal
     {
         List<TModel> GetAll();
-        TModel Get(int id);
+        TModel GetByID(int id);
+        TModel Get(string FilterName, string FilterValue);
         int Delete(TModel entity);
         int Delete(int id);
-        int Insert(TModel entity);
+        ulong Insert(TModel entity);
         int Update(TModel entity);
     }
 }

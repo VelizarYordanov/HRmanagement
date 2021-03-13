@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewData["Title"] = "_UserSectionPartial";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="nav-link">
+        ... кой си ти
+    </div>
+    <div class="nav-link">
+        Logout
+    </div>
+}
+else
+{
+    <div class="nav-link">
+        <a class="nav-link text-dark" asp-area="" asp-controller="UserManagement" asp-action="Register">Register</a>
+    </div>
+    <div class="nav-link">
+        <a class="nav-link text-dark" asp-area="" asp-controller="UserManagement" asp-action="Login">Login</a>
+    </div>
+}
+

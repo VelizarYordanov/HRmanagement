@@ -5,12 +5,15 @@ using System.Threading.Tasks;
 using HRmanagement.BLL;
 using HRmanagement.DAO;
 using HRmanagement.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HRmanagement.Controllers
 {
     public class DepartmentsController : Controller
     {
+        [Authorize]
         public IActionResult Index()
         {
             DepartmentDAO dao = new DepartmentDAO();
@@ -39,7 +42,7 @@ namespace HRmanagement.Controllers
         public IActionResult Edit(int departmentId)
         {
             DepartmentDAO dao = new DepartmentDAO();
-            return View(dao.Get(departmentId));
+            return View(dao.GetByID(departmentId));
         }
 
         public IActionResult Update(int DepartmentId, string Name, string Address)

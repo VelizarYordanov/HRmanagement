@@ -9,6 +9,7 @@ namespace HRmanagement.DAO
     {
         public string InsertSqlBuilder(string TableName, IEnumerable<string> ColumnNames)
         {
+            // Compose insert statement
             string sql = "insert into " +
                 TableName + "s" + 
                 " (" +
@@ -19,8 +20,10 @@ namespace HRmanagement.DAO
 
             sql += string.Join(", ", parameters);
 
-            sql += ");";
+            sql += ");\n";
 
+            // Compose get last id
+            sql += "select last_insert_id();";
             return sql;
         }
 
